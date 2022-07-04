@@ -16,9 +16,9 @@
         </div>
 
 
-    <div class="center jumbotron">
-        <div class="text-center">
-            <h1>SAZANAMI coffee shop</h1>
+        <div class="center jumbotron">
+            <div class="text-center">
+                <h1>SAZANAMI coffee shop</h1>
+            </div>
         </div>
-    </div>
 @endsection

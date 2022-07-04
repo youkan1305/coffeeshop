@@ -6,7 +6,7 @@
     </div>
 
     <div class="row">
-        <div class="col-sm-6 offset-sm-3">
+        <div class="col-sm-5 offset-sm-3 ">
 
             {!! Form::open(['route' => 'signup.post']) !!}
                 <div class="form-group">
@@ -17,6 +17,22 @@
                 <div class="form-group">
                     {!! Form::label('email', 'Email') !!}
                     {!! Form::email('email', null, ['class' => 'form-control']) !!}
+                </div>
+                
+                
+                <div class="form-group">
+                    {!! Form::label('adress_number', '郵便番号') !!}
+                    {!! Form::text('adress_number', null, ['class' => 'form-control']) !!}
+                </div>
+                
+                <div class="form-group">
+                    {!! Form::label('adress', '住所') !!}
+                    {!! Form::text('adress', null, ['class' => 'form-control']) !!}
+                </div>
+                
+                <div class="form-group">
+                    {!! Form::label('tel', '電話番号') !!}
+                    {!! Form::text('tel', null, ['class' => 'form-control']) !!}
                 </div>
 
                 <div class="form-group">
@@ -29,7 +45,7 @@
                     {!! Form::password('password_confirmation', ['class' => 'form-control']) !!}
                 </div>
 
-                {!! Form::submit('Sign up', ['class' => 'btn btn-primary btn-block']) !!}
+                {!! Form::submit('会員登録する', ['class' => 'btn btn-primary btn-block']) !!}
             {!! Form::close() !!}
         </div>
     </div>

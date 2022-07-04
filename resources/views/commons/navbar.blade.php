@@ -9,12 +9,14 @@
           {{-- ユーザ登録ページへのリンク --}}
           <button type="button" class="btn">{!! link_to_route('signup.get', '会員登録', [], ['class' => 'nav-link btn btn-outline-primary me-2']) !!}</button>
           {{-- ログインページへのリンク --}}
-          <button type="button" class="btn"><a href="#" class="nav-link btn btn-outline-primary me-2">Login</a></button>
+          <button type="button" class="btn">
+            {!! link_to_route('login', 'Login', [], ['class' => 'nav-link btn btn-outline-primary me-2']) !!}</button>
+            
           <button type="button" class="btn ">
                 <i class="fab fa-twitter-square"></i>
           </button>
-          <button type="button" class="btn text-end">
-                <i class="fab fa-instagram-square"></i>
+          <button type="button" class="btn text-end"><a href="https://twitter.com/">
+                <i class="fab fa-instagram-square"></i></a>
           </button>
       </dir>
       
