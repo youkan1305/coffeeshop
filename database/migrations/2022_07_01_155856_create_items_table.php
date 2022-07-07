@@ -15,14 +15,17 @@ class CreateItemsTable extends Migration
     {
         Schema::create('items', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
+            $table->string('name', 20)->nullable();
             $table->string('image');
-            $table->string('money');
+            $table->string('money', 5);
             $table->string('text');
             $table->string('sour_taste');
             $table->string('bitter_taste');
             $table->string('flavor');
+            $table->unsignedBigInteger('user_id')->default(0);
             $table->timestamps();
+            
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

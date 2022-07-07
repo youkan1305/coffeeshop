@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers;
 
-
-
 use Illuminate\Http\Request;
 
-use App\Information;
+use App\Item;
 
-class InformationsController extends Controller
+class ItemsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,10 +16,10 @@ class InformationsController extends Controller
     public function index()
     {
         //
-        $information = Information::all();
+        $item = Item::all();
         
-        return view('informations.index', [
-            'information' => $information,
+        return view('items.index', [
+            'item' => $item,
         ]);
     }
 
@@ -33,10 +31,10 @@ class InformationsController extends Controller
     public function create()
     {
         //
-        $information = Information::all();
+        $item = Item::all();
         
-        return view('informations.create', [
-            'information' => $information,
+        return view('items.create', [
+            'items' => $items,
         ]);
     }
 
@@ -49,10 +47,16 @@ class InformationsController extends Controller
     public function store(Request $request)
     {
         //
-        $information = new Information;
-        $information->text = $request->text;
-        $information->user_id = \Auth::id();
-        $information->save();
+        $items = new Item;
+        $items->name = $request->name;
+        $items->image = $request->image;
+        $items->money = $request->money;
+        $items->text = $request->text;
+        $items->sour_taste = $request->sour_taste;
+        $items->bitter_taste = $request->bitter_taste;
+        $items->flavor = $request->flavor;
+        $items->user_id = \Auth::id();
+        $items->save();
         
         // 
         return redirect('/');
@@ -67,10 +71,10 @@ class InformationsController extends Controller
     public function show($id)
     {
         //
-        $information = Information::findOrFail($id);
+        $item = Item::findOrFail($id);
         
-        return view('informations.show', [
-            'information' => $information,
+        return view('items.show', [
+            'item' => $item,
         ]);
     }
 
@@ -83,10 +87,10 @@ class InformationsController extends Controller
     public function edit($id)
     {
         //
-        $information = Information::findOrFail($id);
+        $item = Item::findOrFail($id);
         
-        return view('informations.edit', [
-            'information' => $information,
+        return view('items.edit', [
+            'item' => $item,
         ]);
     }
 
@@ -100,11 +104,11 @@ class InformationsController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $information = Information::findOrFail($id);
+        $item = Item::findOrFail($id);
         
         // 更新
-        $information->text = $request->text;
-        $information->save();
+        $item->text = $request->text;
+        $item->save();
 
         // リダイレクトさせる
         return redirect('/');
@@ -119,10 +123,10 @@ class InformationsController extends Controller
     public function destroy($id)
     {
         //
-        $information = Information::findOrFail($id);
+        $item = Item::findOrFail($id);
         
         // 削除
-        $information->delete();
+        $item->delete();
 
         // リダイレクトさせる
         return redirect('/');

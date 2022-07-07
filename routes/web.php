@@ -25,10 +25,11 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout.get');
 
 
 Route::get('/', 'InformationsController@index');
-
 Route::resource('informations', 'InformationsController');
 
 
 Route::get('/', 'NewsController@index');
-
 Route::resource('news', 'NewsController');
+
+Route::get('/', 'ItemsController@index');
+Route::resource('items', 'ItemsController');
