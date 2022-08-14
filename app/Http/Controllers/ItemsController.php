@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Item;
+use Storage;
 
 class ItemsController extends Controller
 {
@@ -16,6 +17,11 @@ class ItemsController extends Controller
     public function index()
     {
         //
+        
+        if(\Auth::user()->admin_flag==1){
+            return redirect('/');
+        }
+        
         $item = Item::all();
         
         return view('items.index', [
@@ -31,10 +37,14 @@ class ItemsController extends Controller
     public function create()
     {
         //
-        $item = Item::all();
+        if(\Auth::user()->admin_flag==0){
+            return redirect('/');
+        }
+        
+        $item = new Item;
         
         return view('items.create', [
-            'items' => $items,
+            'item' => $item,
         ]);
     }
 
@@ -47,16 +57,25 @@ class ItemsController extends Controller
     public function store(Request $request)
     {
         //
-        $items = new Item;
-        $items->name = $request->name;
-        $items->image = $request->image;
-        $items->money = $request->money;
-        $items->text = $request->text;
-        $items->sour_taste = $request->sour_taste;
-        $items->bitter_taste = $request->bitter_taste;
-        $items->flavor = $request->flavor;
-        $items->user_id = \Auth::id();
-        $items->save();
+        if(\Auth::user()->admin_flag==0){
+            return redirect('/');
+        }
+        
+        $item = new Item;
+        $item->name = $request->name;
+        $item->money = $request->money;
+        $item->text = $request->text;
+        $item->sour_taste = $request->sour_taste;
+        $item->bitter_taste = $request->bitter_taste;
+        $item->flavor = $request->flavor;
+        $item->user_id = \Auth::id();
+
+        // バケットの`example`フォルダへアップロードする
+        $path = Storage::disk('s3')->putFile('/', $request->image, 'public');
+        // アップロードした画像のフルパスを取得
+        $item->image = Storage::disk('s3')->url($path);
+        
+        $item->save();
         
         // 
         return redirect('/');
@@ -71,6 +90,10 @@ class ItemsController extends Controller
     public function show($id)
     {
         //
+        if(\Auth::user()->admin_flag==0){
+            return redirect('/');
+        }
+        
         $item = Item::findOrFail($id);
         
         return view('items.show', [
@@ -87,6 +110,10 @@ class ItemsController extends Controller
     public function edit($id)
     {
         //
+        if(\Auth::user()->admin_flag==0){
+            return redirect('/');
+        }
+        
         $item = Item::findOrFail($id);
         
         return view('items.edit', [
@@ -104,10 +131,27 @@ class ItemsController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $item = Item::findOrFail($id);
+        if(\Auth::user()->admin_flag==0){
+            return redirect('/');
+        }
         
-        // 更新
+        $item = Item::findOrFail($id);
+        $item->name = $request->name;
+        $item->money = $request->money;
         $item->text = $request->text;
+        $item->sour_taste = $request->sour_taste;
+        $item->bitter_taste = $request->bitter_taste;
+        $item->flavor = $request->flavor;
+        $item->user_id = \Auth::id();
+        
+        if(!empty($request->image)){
+
+        // バケットの`example`フォルダへアップロードする
+        $path = Storage::disk('s3')->putFile('/', $request->image, 'public');
+        // アップロードした画像のフルパスを取得
+        $item->image = Storage::disk('s3')->url($path);
+        }
+        
         $item->save();
 
         // リダイレクトさせる
@@ -123,6 +167,10 @@ class ItemsController extends Controller
     public function destroy($id)
     {
         //
+        if(\Auth::user()->admin_flag==0){
+            return redirect('/');
+        }
+        
         $item = Item::findOrFail($id);
         
         // 削除
@@ -131,4 +179,11 @@ class ItemsController extends Controller
         // リダイレクトさせる
         return redirect('/');
     }
+    
+ /*   public function adminCheck()
+    {
+        if(\Auth::user()->admin_flag==0){
+            return redirect('/');
+        }
+    } */
 }

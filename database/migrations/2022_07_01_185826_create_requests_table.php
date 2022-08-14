@@ -13,15 +13,15 @@ class CreateRequestsTable extends Migration
      */
     public function up()
     {
-        Schema::create('requests', function (Blueprint $table) {
+        Schema::create('requestorders', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
-            $table->string('settlement');
+            
             $table->string('delivery_name');
             $table->string('delivery_address_number');
             $table->string('delivery_address');
             $table->string('delivery_address_tel');
-            $table->string('delivery_date');
+            
             $table->timestamps();
             
             $table->foreign('user_id')->references('id')->on('users');
@@ -35,6 +35,6 @@ class CreateRequestsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('requests');
+        Schema::dropIfExists('requestorders');
     }
 }

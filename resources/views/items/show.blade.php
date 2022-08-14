@@ -16,7 +16,7 @@
         </tr>
         <tr>
             <th>画像</th>
-            <td>{{ $item->image }}</td>
+            <td><img src="{{ $item->image }}" ></td>
         </tr>
         <tr>
             <th>金額</th>

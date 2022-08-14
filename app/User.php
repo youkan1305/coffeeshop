@@ -43,13 +43,29 @@ class User extends Authenticatable
         return $this->hasMany(Information::class);
     }
     
+    public function news()
+    {
+        return $this->hasMany(News::class);
+    }
+    
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
+    
+    public function requestorders()
+    {
+        return $this->hasMany(Requestorder::class);
+    }
     
     public function loadRelationshipCounts()
     {
-        $this->loadCount('informations');
+        $this->loadCount('informations', 'orders');
     }
     
-   
+    
+    
+    
     
     
 }

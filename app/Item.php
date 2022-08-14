@@ -14,8 +14,10 @@ class Item extends Model
     /**
      * この投稿を所有するユーザ。（ Userモデルとの関係を定義）
      */
-    public function user()
+    public function orders()
     {
-        return $this->belongsTo(User::class);
+        return $this->hasMany(Order::class);
     }
+    
+    
 }

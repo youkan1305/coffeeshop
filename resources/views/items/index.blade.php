@@ -3,7 +3,7 @@
 @section('content')
 
 <!-- ここにページ毎のコンテンツを書く -->
-    <h2>商品一覧</h2>
+    <h3>商品一覧</h3>
      {{-- 作成ページへのリンク --}}
     {!! link_to_route('items.create', '新規商品追加', [], ['class' => 'btn btn-primary']) !!}
     @if (count($item) > 0)
@@ -20,7 +20,7 @@
                     {{-- 詳細ページへのリンク --}}
                     <td>{!! link_to_route('items.show', $item->id, ['item' => $item->id]) !!}</td>
                     <td>{{ $item->name }}</td>
-                    <td>{{ $item->image }}</td>
+                    <td><img src="{{ $item->image }}" ></td>
                     <td>{{ $item->money }}</td>
                     <td>{{ $item->text }}</td>
                     <td>{{ $item->sour_taste }}</td>

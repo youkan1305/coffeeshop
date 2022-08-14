@@ -7,14 +7,14 @@
 
     <div class="row">
         <div class="col-6">
-            {!! Form::model($item, ['route' => 'items.store']) !!}
+            {!! Form::model($item, ['route' => 'items.store', 'files' => true]) !!}
 
                 <div class="form-group">
                     {!! Form::label('name', '商品名') !!}
                     {!! Form::text('name', null, ['class' => 'form-control']) !!}
                     
                     {!! Form::label('image', '商品画像') !!}
-                    {!! Form::text('image', null, ['class' => 'form-control']) !!}
+                    {!! Form::file('image', null, ['class' => 'form-control']) !!}
                     
                     {!! Form::label('money', '金額') !!}
                     {!! Form::text('money', null, ['class' => 'form-control']) !!}

@@ -9,16 +9,17 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 
         <title>sazanami coffee shop</title>
+        <style>
+        
+        </style>
     </head>
     <body>
         
+        <div class="navbar">
         {{-- ナビゲーションバー --}}
         @include('commons.navbar')
         
-        
-        
-        
-        
+        </div>
         
         
         <div class="container">
@@ -26,9 +27,12 @@
             @include('commons.error_messages')
 
             @yield('content')
+                
         </div>
 
-
+        <div class="footer">
+            @include('commons.footer')
+        </div>
 
 
         <!-- Optional JavaScript -->

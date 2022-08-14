@@ -16,15 +16,17 @@ class CreateOrdersTable extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('item_id');
-            $table->unsignedBigInteger('request_id');
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->unsignedBigInteger('request_id')->nullable();
             $table->string('weight');
             $table->string('roasting');
             $table->string('grind');
-            $table->string('quantity');
+            $table->integer('quantity');
             $table->timestamps();
             
-            $table->foreign('request_id')->references('id')->on('requests');
+            $table->foreign('request_id')->references('id')->on('requestorders');
             $table->foreign('item_id')->references('id')->on('items');
+            $table->foreign('user_id')->references('id')->on('users');
             
             $table->unique(['request_id', 'item_id']);
         });

@@ -16,6 +16,10 @@ class NewsController extends Controller
     public function index()
     {
         //
+        if(\Auth::user()->admin_flag==0){
+            return redirect('/');
+        }
+        
         $new = News::all();
         
         return view('news.index', [
@@ -31,7 +35,9 @@ class NewsController extends Controller
     public function create()
     {
         //
-        //$information = News::all();
+        if(\Auth::user()->admin_flag==0){
+            return redirect('/');
+        }
         
         $news = new News;
         
@@ -49,6 +55,10 @@ class NewsController extends Controller
     public function store(Request $request)
     {
         //
+        if(\Auth::user()->admin_flag==0){
+            return redirect('/');
+        }
+        
         $news = new News;
         $news->text = $request->text;
         $news->user_id = \Auth::id();
@@ -69,6 +79,10 @@ class NewsController extends Controller
     public function show($id)
     {
         //
+        if(\Auth::user()->admin_flag==0){
+            return redirect('/');
+        }
+        
         $news = News::findOrFail($id);
         
         return view('news.show', [
@@ -85,6 +99,10 @@ class NewsController extends Controller
     public function edit($id)
     {
         //
+        if(\Auth::user()->admin_flag==0){
+            return redirect('/');
+        }
+        
         $news = News::findOrFail($id);
         
         return view('news.edit', [
@@ -102,6 +120,10 @@ class NewsController extends Controller
     public function update(Request $request, $id)
     {
         //
+        if(\Auth::user()->admin_flag==0){
+            return redirect('/');
+        }
+        
         $news = News::findOrFail($id);
         
         // 更新
@@ -121,6 +143,10 @@ class NewsController extends Controller
     public function destroy($id)
     {
         //
+        if(\Auth::user()->admin_flag==0){
+            return redirect('/');
+        }
+        
         $news = News::findOrFail($id);
         
         // 削除

@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers;
 
-
-
 use Illuminate\Http\Request;
+use App\User;
 
-use App\Information;
 
-class InformationsController extends Controller
+class MypageController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,15 +16,10 @@ class InformationsController extends Controller
     public function index()
     {
         //
-        if(\Auth::user()->admin_flag==0){
-            return redirect('/');
-        }
+        $mypage = User::findOrFail($id);
         
-        $information = Information::all();
+        return view('mypages.index');
         
-        return view('informations.index', [
-            'information' => $information,
-        ]);
     }
 
     /**
@@ -37,15 +30,7 @@ class InformationsController extends Controller
     public function create()
     {
         //
-        if(\Auth::user()->admin_flag==0){
-            return redirect('/');
-        }
         
-        $information = Information::all();
-        
-        return view('informations.create', [
-            'information' => $information,
-        ]);
     }
 
     /**
@@ -57,13 +42,7 @@ class InformationsController extends Controller
     public function store(Request $request)
     {
         //
-        $information = new Information;
-        $information->text = $request->text;
-        $information->user_id = \Auth::id();
-        $information->save();
         
-        // 
-        return redirect('/');
     }
 
     /**
@@ -75,10 +54,10 @@ class InformationsController extends Controller
     public function show($id)
     {
         //
-        $information = Information::findOrFail($id);
+        $mypage = User::findOrFail($id);
         
-        return view('informations.show', [
-            'information' => $information,
+        return view('mypages.show', [
+            'mypages' => $mypage,
         ]);
     }
 
@@ -91,14 +70,10 @@ class InformationsController extends Controller
     public function edit($id)
     {
         //
-        if(\Auth::user()->admin_flag==0){
-            return redirect('/');
-        }
+        $mypage = User::findOrFail($id);
         
-        $information = Information::findOrFail($id);
-        
-        return view('informations.edit', [
-            'information' => $information,
+        return view('mypages.edit', [
+            'mypage' => $mypage,
         ]);
     }
 
@@ -112,17 +87,16 @@ class InformationsController extends Controller
     public function update(Request $request, $id)
     {
         //
-        if(\Auth::user()->admin_flag==0){
-            return redirect('/');
-        }
+        $mypage = User::findOrFail($id);
         
-        $information = Information::findOrFail($id);
+        $mypage->name = $request->name;
+        $mypage->email = $request->email;
+        $mypage->adress_number = $request->adress_number;
+        $mypage->address = $request->address;
+        $mypage->tel = $request->tel;
         
-        // 更新
-        $information->text = $request->text;
-        $information->save();
-
-        // リダイレクトさせる
+        $mypage->save();
+        
         return redirect('/');
     }
 
@@ -135,16 +109,10 @@ class InformationsController extends Controller
     public function destroy($id)
     {
         //
-        if(\Auth::user()->admin_flag==0){
-            return redirect('/');
-        }
+        $mypage = User::findOrFail($id);
         
-        $information = Information::findOrFail($id);
+        $mypage->delete();
         
-        // 削除
-        $information->delete();
-
-        // リダイレクトさせる
         return redirect('/');
     }
 }
